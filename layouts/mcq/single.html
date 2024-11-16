@@ -1,0 +1,51 @@
+{{ define "main" }}
+<div id="mcq-container" class="mb-8">
+  <h2 class="text-xl font-semibold mb-2">Question {{ .Title }}: {{ .Params.question }}</h2>
+  <form id="mcq-form">
+    {{ range $key, $value := .Params.options }}
+      <div class="mb-2">
+        <input type="radio" id="option-{{ $key }}" name="option" value="{{ $key }}">
+        <label for="option-{{ $key }}">{{ $key }}: {{ $value }}</label>
+      </div>
+    {{ end }}
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-4">Submit</button>
+  </form>
+  <div id="mcq-feedback" class="mt-4"></div>
+</div>
+
+<script>
+document.getElementById('mcq-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const selectedOption = document.querySelector('input[name="option"]:checked');
+  if (!selectedOption) {
+    alert('Please select an option.');
+    return;
+  }
+
+  const correctAnswer = '{{ .Params.answer }}';
+  const explanation = '{{ .Params.explanation }}';
+
+  // Highlight options
+  document.querySelectorAll('input[name="option"]').forEach(input => {
+    const label = input.nextElementSibling;
+    if (input.value === correctAnswer) {
+      label.style.color = 'green';
+    } else if (input.checked) {
+      label.style.color = 'red';
+    }
+    input.disabled = true; // Disable further selection
+  });
+
+  // Display explanation
+  const feedbackDiv = document.getElementById('mcq-feedback');
+  const isCorrect = selectedOption.value === correctAnswer;
+  feedbackDiv.innerHTML = `
+    <p class="${isCorrect ? 'text-green-600' : 'text-red-600'} font-semibold">
+      ${isCorrect ? 'Correct!' : 'Incorrect.'}
+    </p>
+    <p>${explanation}</p>
+  `;
+});
+</script>
+{{ end }}

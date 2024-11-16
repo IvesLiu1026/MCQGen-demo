@@ -1,0 +1,27 @@
+theme = "PaperMod"
+baseURL = "https://IvesLiu1026.github.io/MCQGen-demo/"
+languageCode = "en-us"
+title = "MCQGen Demo"
+publishDir = "public"
+
+[params]
+  # Basic Configurations
+  mode = "auto"          # Theme mode: light, dark, or auto
+  showReadingTime = false # Hide reading time
+  showToc = true          # Show Table of Contents
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    name = "Transcript"
+    url = "/transcript/"
+    weight = 2
+
+  [[menu.main]]
+    name = "MCQs"
+    url = "/mcqs/"
+    weight = 3

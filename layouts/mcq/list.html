@@ -1,0 +1,15 @@
+{{ define "main" }}
+<h1 class="text-2xl font-bold mb-4">Multiple Choice Questions</h1>
+<ul class="list-none p-0">
+  {{ range .Paginator.Pages }}
+    <li class="mb-4 p-4 border rounded">
+      <a href="{{ .RelPermalink }}" class="text-blue-600 hover:underline">Question {{ .Title }}</a>
+    </li>
+  {{ end }}
+</ul>
+
+<!-- Pagination -->
+<div class="mt-4">
+  {{ template "_internal/pagination.html" . }}
+</div>
+{{ end }}
